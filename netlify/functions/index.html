@@ -52,6 +52,18 @@
       </div>
     </div>
 
+    <div class="calc-box" style="border-color:#38bdf8;">
+      <h2 style="margin-top:0; font-size:20px;">Test What Your Client's Leads See in 10 Seconds</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <input type="text" id="demoBrand" placeholder="Client Brand (e.g. Thames Solar)" value="Thames Solar Ltd" />
+        <input type="text" id="demoLead" placeholder="Lead Name (e.g. Sarah)" value="Sarah" />
+      </div>
+      <button type="button" style="background:#3b82f6;" onclick="runPreview()">Simulate Instant Webhook Dispatch</button>
+      <div id="previewOut" style="margin-top:14px; background:#020617; padding:14px; border-radius:8px; font-size:14px; color:#94a3b8; border-left:4px solid #10b981;">
+        Click above to preview the homeowner SMS + sales rep alert...
+      </div>
+    </div>
+
     <h3 style="margin-bottom:8px;">5-Minute Webhook Setup (Meta Ads / Zapier / Make / GHL)</h3>
     <pre>POST https://netlify.app
 {
@@ -81,6 +93,14 @@
       document.getElementById("pVal").innerText = "£" + p;
       const net = (c * p) - 1500;
       document.getElementById("netProfit").innerText = (net >= 0 ? "£" : "-£") + Math.abs(net).toLocaleString() + " / mo";
+    }
+
+    function runPreview() {
+      const brand = document.getElementById("demoBrand").value || "Your Client";
+      const lead = document.getElementById("demoLead").value || "Homeowner";
+      document.getElementById("previewOut").innerHTML =
+        `<b style="color:#38bdf8;">[00:04s] SMS to ${lead}:</b> "Hi ${lead}, thanks for requesting a quote with ${brand}. Reply YES to confirm your number so our specialist can call you right away."<br><br>` +
+        `<b style="color:#34d399;">[00:05s] Alert to ${brand} Sales Rep:</b> "NEW HOT LEAD: ${lead} — 10s SMS sent. Call immediately."`;
     }
   </script>
 </body>
