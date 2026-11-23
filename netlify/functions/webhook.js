@@ -1,11 +1,12 @@
 const twilio = require("twilio");
 
-// Add agency sub-accounts here (or connect to a database/Sheet)
 const AGENCIES = {
   "pilot-agency-1": {
     agencyName: "Apex Solar Marketing",
     companyDisplay: "Oxfordshire Solar Ltd",
-    repPhone: "+447700900001"
+    repPhone: "+447700900001",
+    plan: "pilot", // "pilot" (max 50 leads) or "pro" (unlimited)
+    leadsUsed: 0
   }
 };
 
@@ -16,11 +17,15 @@ exports.handler = async (event) => {
 
   try {
     const data = JSON.parse(event.body || "{}");
-    const key = event.queryStringParameters?.key || data.agency_key || "pilot-agency-1";
+    const key = event.queryStringParameters?.key || data.agency_key;
     const account = AGENCIES[key];
 
     if (!account) {
       return { statusCode: 401, body: JSON.stringify({ error: "Invalid agency key" }) };
+    }
+
+    if (account.plan === "pilot" && account.leadsUsed >= 50) {
+      return { statusCode: 402, body: JSON.stringify({ error: "14-day pilot cap (50 leads) reached. Upgrade to Wholesale Pro." }) };
     }
 
     const name = data.name || "there";
@@ -30,23 +35,23 @@ exports.handler = async (event) => {
 
     const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
-    // 1. Instant 10-second SMS to the homeowner on behalf of the agency's client
     await client.messages.create({
       to: phone,
       from: process.env.TWILIO_NUMBER,
       body: `Hi ${name}, thanks for requesting a quote with ${account.companyDisplay}${postcode ? ` (${postcode})` : ""}. Reply YES to confirm your number so our specialist can call you right away.`
     });
 
-    // 2. Instant hot-lead alert to the installer's sales rep
     await client.messages.create({
       to: account.repPhone,
       from: process.env.TWILIO_NUMBER,
       body: `NEW LEAD (${account.agencyName}): ${name} | ${phone} | ${postcode} — 10s SMS sent.`
     });
 
+    account.leadsUsed += 1;
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ status: "dispatched", agency: account.agencyName })
+      body: JSON.stringify({ status: "dispatched", agency: account.agencyName, leadsUsed: account.leadsUsed })
     };
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
