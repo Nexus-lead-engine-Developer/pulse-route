@@ -5,7 +5,7 @@ const AGENCIES = {
     agencyName: "Apex Solar Marketing",
     companyDisplay: "Oxfordshire Solar Ltd",
     repPhone: "+447700900001",
-    plan: "pilot", // "pilot" (max 50 leads) or "pro" (unlimited)
+    plan: "pilot",
     leadsUsed: 0
   }
 };
