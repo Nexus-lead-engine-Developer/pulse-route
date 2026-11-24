@@ -92,9 +92,10 @@
       btn.textContent = 'Activating Your Feed...';
       errorMsg.style.display = 'none';
 
-      const data = {
-        _subject: 'New TenderPing 14-Day Free Trial Request!',
-        _captcha: 'false',
+      const payload = {
+        access_key: '0b8dbf87-5620-4734-817d-25fda4336d27',
+        subject: 'New TenderPing 14-Day Free Trial Request!',
+        from_name: 'TenderPing UK',
         company: document.getElementById('company').value,
         email: document.getElementById('email').value,
         sector: document.getElementById('sector').value,
@@ -102,16 +103,17 @@
       };
 
       try {
-        const res = await fetch('https://formsubmit.co', {
+        const res = await fetch('https://web3forms.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(data)
+          body: JSON.stringify(payload)
         });
-        if (res.ok) {
+        const result = await res.json();
+        if (result.success) {
           form.style.display = 'none';
           successBox.style.display = 'block';
         } else {
-          throw new Error('Submission failed');
+          throw new Error(result.message || 'Submission failed');
         }
       } catch (err) {
         errorMsg.style.display = 'block';
