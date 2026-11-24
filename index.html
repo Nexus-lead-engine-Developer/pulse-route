@@ -15,8 +15,12 @@
     .card h2 { font-size: 20px; margin-bottom: 16px; color: #f1f5f9; }
     label { display: block; font-size: 14px; font-weight: 600; color: #cbd5e1; margin-bottom: 6px; margin-top: 14px; }
     input, select { width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #f8fafc; font-size: 15px; }
-    button { width: 100%; margin-top: 22px; padding: 14px; background: #0284c7; hover: #0369a1; color: white; font-size: 16px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; }
+    button { width: 100%; margin-top: 22px; padding: 14px; background: #0284c7; color: white; font-size: 16px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; transition: background 0.15s ease; }
     button:hover { background: #0369a1; }
+    button:disabled { background: #334155; cursor: not-allowed; }
+    .success-box { display: none; background: #064e3b; border: 1px solid #10b981; color: #ecfdf5; padding: 20px; border-radius: 10px; margin-top: 16px; }
+    .success-box h3 { font-size: 18px; margin-bottom: 6px; }
+    .error-msg { display: none; color: #f87171; font-size: 14px; margin-top: 12px; }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
     .feat { background: #111827; border: 1px solid #1f2937; padding: 20px; border-radius: 10px; }
     .feat h3 { font-size: 16px; color: #38bdf8; margin-bottom: 6px; }
@@ -33,10 +37,7 @@
 
     <div class="card">
       <h2>Start Your Free 14-Day Custom Tender Feed</h2>
-      <form action="https://formsubmit.co" method="POST">
-        <input type="hidden" name="_subject" value="New TenderPing 14-Day Free Trial Request!" />
-        <input type="hidden" name="_captcha" value="false" />
-
+      <form id="trialForm">
         <label for="company">Company Name</label>
         <input type="text" id="company" name="company" placeholder="e.g. Thames Valley Commercial Cleaning Ltd" required />
 
@@ -55,8 +56,14 @@
         <label for="keywords">Keywords & Regions (e.g. "office cleaning, Oxfordshire, Reading")</label>
         <input type="text" id="keywords" name="keywords" placeholder="cleaning, janitorial, London, South East" required />
 
-        <button type="submit">Get My Free 14-Day Tender Feed →</button>
+        <button type="submit" id="submitBtn">Get My Free 14-Day Tender Feed →</button>
+        <p class="error-msg" id="errorMsg">Something went wrong—please try again or email sebastianvtesta@gmail.com directly.</p>
       </form>
+
+      <div class="success-box" id="successBox">
+        <h3>You're In! Custom Feed Activated.</h3>
+        <p>We've locked in your keywords. Your first plain-English UK Contracts Finder brief will arrive at 6:30 am on the next weekday.</p>
+      </div>
     </div>
 
     <div class="grid">
@@ -72,5 +79,46 @@
 
     <footer>TenderPing UK • Automated Public Sector Tender Intelligence • £199/mo after free 14-day trial</footer>
   </div>
+
+  <script>
+    const form = document.getElementById('trialForm');
+    const btn = document.getElementById('submitBtn');
+    const successBox = document.getElementById('successBox');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Activating Your Feed...';
+      errorMsg.style.display = 'none';
+
+      const data = {
+        _subject: 'New TenderPing 14-Day Free Trial Request!',
+        _captcha: 'false',
+        company: document.getElementById('company').value,
+        email: document.getElementById('email').value,
+        sector: document.getElementById('sector').value,
+        keywords: document.getElementById('keywords').value
+      };
+
+      try {
+        const res = await fetch('https://formsubmit.co', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          successBox.style.display = 'block';
+        } else {
+          throw new Error('Submission failed');
+        }
+      } catch (err) {
+        errorMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Get My Free 14-Day Tender Feed →';
+      }
+    });
+  </script>
 </body>
 </html>
