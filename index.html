@@ -3,151 +3,565 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BidScout UK — Sub-£122k UK Government & Council Contracts</title>
+  <title>BidScout UK — Automated Sub-£122k UK Public Sector Tender Intelligence</title>
+  <meta name="description" content="Daily 6:30 am UK Contracts Finder briefs strictly filtered to winnable £10k–£122k local council, school, and NHS contracts for UK SMEs." />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: #070b14; color: #f8fafc; line-height: 1.6; }
-    input.tab-radio { display: none; }
-    header { background: #0b1120; border-bottom: 1px solid #1e293b; padding: 14px 24px; position: sticky; top: 0; z-index: 99; }
-    .nav { max-width: 980px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .brand { font-size: 20px; font-weight: 800; color: #fff; cursor: pointer; }
-    .brand span { color: #38bdf8; }
-    .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-    .tab-lbl { background: #1e293b; color: #cbd5e1; border: 1px solid #334155; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; user-select: none; }
-    .tab-lbl:hover { background: #0284c7; color: #fff; border-color: #0284c7; }
-    #t-trial:checked ~ header label[for="t-trial"],
-    #t-samples:checked ~ header label[for="t-samples"],
-    #t-how:checked ~ header label[for="t-how"],
-    #t-pricing:checked ~ header label[for="t-pricing"],
-    #t-faq:checked ~ header label[for="t-faq"] { background: #0284c7; color: #fff; border-color: #0284c7; }
-    main { max-width: 980px; margin: 0 auto; padding: 36px 24px 72px; }
-    .hero { text-align: center; margin-bottom: 32px; }
-    .hero h1 { font-size: 36px; font-weight: 800; line-height: 1.15; margin-bottom: 10px; }
-    .hero h1 span { color: #38bdf8; }
-    .hero p { color: #94a3b8; font-size: 16px; max-width: 720px; margin: 0 auto; }
-    .panel { display: none; }
-    #t-trial:checked ~ main #p-trial,
-    #t-samples:checked ~ main #p-samples,
-    #t-how:checked ~ main #p-how,
-    #t-pricing:checked ~ main #p-pricing,
-    #t-faq:checked ~ main #p-faq { display: block; }
-    .box { max-width: 640px; margin: 0 auto; background: #111827; border: 1px solid #1f2937; border-radius: 14px; padding: 28px; }
-    .box h2 { font-size: 22px; margin-bottom: 4px; }
-    .box .hint { font-size: 13px; color: #94a3b8; margin-bottom: 18px; }
-    form p { margin-bottom: 14px; }
-    form label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 5px; }
-    input[type="text"], input[type="email"], select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; }
-    .go-btn { display: block; width: 100%; padding: 16px; margin-top: 8px; background: #10b981; color: #042f2e; font-size: 16px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; text-align: center; }
-    .go-btn:hover { background: #34d399; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; margin-top: 16px; }
-    .card { background: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 22px; }
-    .tag { font-size: 12px; font-weight: 700; color: #38bdf8; text-transform: uppercase; display: block; margin-bottom: 6px; }
-    .card h3 { font-size: 17px; margin-bottom: 8px; }
-    .card p { font-size: 14px; color: #94a3b8; margin-bottom: 6px; }
-    .price-card { max-width: 480px; margin: 0 auto; background: #111827; border: 2px solid #0284c7; border-radius: 14px; padding: 30px; text-align: center; }
-    .price-num { font-size: 42px; font-weight: 800; margin: 10px 0; }
-    .price-card ul { list-style: none; text-align: left; margin: 18px 0 24px; }
-    .price-card li { padding: 8px 0; border-bottom: 1px solid #1f2937; font-size: 14px; color: #cbd5e1; }
-    footer { text-align: center; font-size: 13px; color: #64748b; margin-top: 56px; padding-top: 20px; border-top: 1px solid #1e293b; }
-  </style>
-</head>
+    :root {
+      --bg-base: #060913;
+      --bg-surface: #0d1322;
+      --bg-card: #111827;
+      --bg-elevated: #172033;
+      --border-subtle: #1e293b;
+      --border-strong: #334155;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent-blue: #38bdf8;
+      --accent-blue-dark: #0284c7;
+      --accent-green: #10b981;
+      --accent-green-hover: #34d399;
+      --accent-amber: #f59e0b;
+      --accent-purple: #a78bfa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg-base);
+      color: var(--text-primary);
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #0f1b33 0%, var(--bg-base) 55%);
+      color: var(--text-primary);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    input.nav-radio,
+    input.brief-radio,
+    input.sector-radio {
+      display: none;
+    }
+
+    /* Sticky Navigation Header */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(6, 9, 19, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 24px;
+    }
+
+    nav.nav-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    label.brand-logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    label.brand-logo span.accent {
+      color: var(--accent-blue);
+    }
+
+    label.brand-logo span.tag {
+      font-size: 11px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      color: var(--accent-blue);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    section.nav-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    label.nav-tab {
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    label.nav-tab:hover {
+      border-color: var(--accent-blue);
+      color: var(--text-primary);
+    }
+
+    #nav-trial:checked ~ header label[for="nav-trial"],
+    #nav-samples:checked ~ header label[for="nav-samples"],
+    #nav-sectors:checked ~ header label[for="nav-sectors"],
+    #nav-how:checked ~ header label[for="nav-how"],
+    #nav-pricing:checked ~ header label[for="nav-pricing"],
+    #nav-faq:checked ~ header label[for="nav-faq"] {
+      background: var(--accent-blue-dark);
+      color: #ffffff;
+      border-color: var(--accent-blue-dark);
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+    }
+
+    /* Main Wrapper */
+    main.page-wrapper {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 40px 24px 96px;
+    }
+
+    /* Hero Banner */
+    section.hero-banner {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 36px;
+    }
+
+    span.hero-pill {
+      display: inline-block;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      color: var(--accent-blue);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    section.hero-banner h1 {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.14;
+      letter-spacing: -0.025em;
+      margin-bottom: 14px;
+    }
+
+    section.hero-banner h1 span {
+      color: var(--accent-blue);
+    }
+
+    section.hero-banner p {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    /* KPI Metrics Strip */
+    section.kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+
+    article.kpi-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-align: center;
+    }
+
+    article.kpi-card strong {
+      display: block;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent-blue);
+      margin-bottom: 2px;
+    }
+
+    article.kpi-card span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Tab Panels */
+    section.tab-panel {
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #nav-trial:checked ~ main #panel-trial,
+    #nav-samples:checked ~ main #panel-samples,
+    #nav-sectors:checked ~ main #panel-sectors,
+    #nav-how:checked ~ main #panel-how,
+    #nav-pricing:checked ~ main #panel-pricing,
+    #nav-faq:checked ~ main #panel-faq {
+      display: block;
+    }
+
+    /* Section Headers inside Panels */
+    header.panel-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 32px;
+    }
+
+    header.panel-header h2 {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    header.panel-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    /* Trial Onboarding Layout */
+    section.trial-layout {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    article.form-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    article.form-container h2 {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    article.form-container p.form-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    form p.field-group {
+      margin-bottom: 16px;
+    }
+
+    form label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-size: 15px;
+      transition: border-color 0.15s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+    }
+
+    textarea {
+      min-height: 78px;
+      resize: vertical;
+    }
+
+    button.submit-cta {
+      display: block;
+      width: 100%;
+      padding: 17px;
+      margin-top: 10px;
+      background: var(--accent-green);
+      color: #042f2e;
+      font-size: 16px;
+      font-weight: 800;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      transition: background 0.15s ease;
+    }
+
+    button.submit-cta:hover {
+      background: var(--accent-green-hover);
+    }
+
+    p.direct-mail {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    p.direct-mail a {
+      color: var(--accent-blue);
+      text-decoration: underline;
+    }
+
+    /* Trial Sidebar Trust Card */
+    aside.trust-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    article.trust-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    article.trust-box h3 {
+      font-size: 16px;
+      color: var(--accent-blue);
+      margin-bottom: 10px;
+    }
+
+    article.trust-box ul {
+      list-style: none;
+    }
+
+    article.trust-box li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    article.trust-box li:last-child {
+      border-bottom: none;
+    }
+
+    /* Inbox Simulator (Sample Briefs) */
+    section.inbox-simulator {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      min-height: 520px;
+    }
+
+    aside.inbox-list {
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border-subtle);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    aside.inbox-list h3 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 4px 8px;
+    }
+
+    label.brief-item {
+      display: block;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    label.brief-item:hover {
+      border-color: var(--accent-blue);
+    }
+
+    label.brief-item span.b-cat {
 <body>
 
-  <input type="radio" name="navtab" id="t-trial" class="tab-radio" checked />
-  <input type="radio" name="navtab" id="t-samples" class="tab-radio" />
-  <input type="radio" name="navtab" id="t-how" class="tab-radio" />
-  <input type="radio" name="navtab" id="t-pricing" class="tab-radio" />
-  <input type="radio" name="navtab" id="t-faq" class="tab-radio" />
+  <input type="radio" name="main-nav" id="nav-trial" class="nav-radio" checked />
+  <input type="radio" name="main-nav" id="nav-samples" class="nav-radio" />
+  <input type="radio" name="main-nav" id="nav-sectors" class="nav-radio" />
+  <input type="radio" name="main-nav" id="nav-how" class="nav-radio" />
+  <input type="radio" name="main-nav" id="nav-pricing" class="nav-radio" />
+  <input type="radio" name="main-nav" id="nav-faq" class="nav-radio" />
 
-  <header>
-    <nav class="nav">
-      <label for="t-trial" class="brand">Bid<span>Scout</span> UK</label>
-      <section class="tabs">
-        <label for="t-trial" class="tab-lbl">Free 7-Day Trial</label>
-        <label for="t-samples" class="tab-lbl">Sample Briefs</label>
-        <label for="t-how" class="tab-lbl">How It Works</label>
-        <label for="t-pricing" class="tab-lbl">Pricing</label>
-        <label for="t-faq" class="tab-lbl">FAQ</label>
+  <header class="site-header">
+    <nav class="nav-container">
+      <label for="nav-trial" class="brand-logo">Bid<span class="accent">Scout</span> UK <span class="tag">LIVE API</span></label>
+      <section class="nav-tabs">
+        <label for="nav-trial" class="nav-tab">Free 7-Day Trial</label>
+        <label for="nav-samples" class="nav-tab">Sample Briefs (6)</label>
+        <label for="nav-sectors" class="nav-tab">24 UK Trades</label>
+        <label for="nav-how" class="nav-tab">How It Works</label>
+        <label for="nav-pricing" class="nav-tab">Pricing</label>
+        <label for="nav-faq" class="nav-tab">FAQ (12)</label>
       </section>
     </nav>
   </header>
 
-  <main>
-    <section class="hero">
+  <main class="page-wrapper">
+    <section class="hero-banner">
+      <span class="hero-pill">UK Contracts Finder Automated Feed • Mon–Fri at 6:30 AM</span>
       <h1>Win <span>£10k–£122k</span> Local Council, School &amp; NHS Contracts Without Searching.</h1>
-      <p>Every weekday at 6:30 am, BidScout scans official UK Contracts Finder notices, strips out £5m corporate frameworks, and emails plain-English briefs tailored to your trade.</p>
+      <p>Every weekday at 6:30 am, BidScout UK scans official public-sector notices, strips out £5m corporate frameworks, and emails plain-English briefs tailored to your exact trade and region.</p>
     </section>
 
-    <section id="p-trial" class="panel">
-      <article class="box">
-        <h2>Start Your Free 7-Day Custom Tender Feed</h2>
-        <p class="hint">5 full weekday morning briefings for verified UK businesses. No credit card required—£199/month after 7 days or cancel anytime.</p>
-
-        <form action="https://web3forms.com" method="POST">
-          <input type="hidden" name="access_key" value="0b8dbf87-5620-4734-817d-25fda4336d27" />
-          <input type="hidden" name="subject" value="New BidScout UK 7-Day Free Trial Request!" />
-          <input type="hidden" name="from_name" value="BidScout UK" />
-          <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off" />
-
-          <p>
-            <label for="company">Registered UK Company Name</label>
-            <input type="text" id="company" name="company" placeholder="e.g. Thames Valley Commercial Cleaning Ltd" required />
-          </p>
-
-          <p>
-            <label for="email">Company Work Email</label>
-            <input type="email" id="email" name="email" placeholder="you@yourcompany.co.uk" required />
-          </p>
-
-          <p>
-            <label for="sector">Primary Service / Trade</label>
-            <select id="sector" name="sector">
-              <option value="Commercial & School Cleaning">Commercial &amp; School Cleaning</option>
-              <option value="Security, CCTV & Manned Guarding">Security, CCTV &amp; Manned Guarding</option>
-              <option value="IT Support & Managed Services">IT Support &amp; Managed Services</option>
-              <option value="Facilities & Building Maintenance">Facilities &amp; Building Maintenance</option>
-              <option value="Grounds Maintenance & Landscaping">Grounds Maintenance &amp; Landscaping</option>
-              <option value="Electrical & Mechanical (M&E)">Electrical &amp; Mechanical (M&E)</option>
-              <option value="HVAC, Plumbing & Heating">HVAC, Plumbing &amp; Heating</option>
-              <option value="Fire Safety & Compliance Testing">Fire Safety &amp; Compliance Testing</option>
-              <option value="Waste Management & Recycling">Waste Management &amp; Recycling</option>
-              <option value="Catering & Hospitality Services">Catering &amp; Hospitality Services</option>
-              <option value="Solar, EV Charging & Energy Retrofit">Solar, EV Charging &amp; Energy Retrofit</option>
-              <option value="Other UK B2B Service">Other UK B2B Service</option>
-            </select>
-          </p>
-
-          <p>
-            <label for="region">Target UK Region</label>
-            <select id="region" name="region">
-              <option value="London & Greater London">London &amp; Greater London</option>
-              <option value="South East (Oxfordshire, Berks, Bucks, Surrey, Kent)">South East (Oxon, Berks, Bucks, Surrey, Kent)</option>
-              <option value="South West (Bristol, Devon, Dorset, Wilts)">South West (Bristol, Devon, Dorset, Wilts)</option>
-              <option value="East of England (Cambs, Essex, Herts, Norfolk)">East of England (Cambs, Essex, Herts, Norfolk)</option>
-              <option value="West Midlands (Birmingham, Coventry, Staffs)">West Midlands (Birmingham, Coventry, Staffs)</option>
-              <option value="East Midlands (Nottingham, Leicester, Derby)">East Midlands (Nottingham, Leicester, Derby)</option>
-              <option value="North West (Manchester, Liverpool, Lancs)">North West (Manchester, Liverpool, Lancs)</option>
-              <option value="Yorkshire & The Humber (Leeds, Sheffield)">Yorkshire &amp; The Humber (Leeds, Sheffield)</option>
-              <option value="North East (Newcastle, Durham, Teesside)">North East (Newcastle, Durham, Teesside)</option>
-              <option value="Scotland">Scotland</option>
-              <option value="Wales">Wales</option>
-              <option value="UK-Wide / Remote Delivery">UK-Wide / Remote Delivery</option>
-            </select>
-          </p>
-
-          <p>
-            <label for="keywords">Exact Keywords &amp; Exclusions</label>
-            <input type="text" id="keywords" name="keywords" placeholder="e.g. office cleaning, school cleaning, Oxfordshire" required />
-          </p>
-
-          <button type="submit" class="go-btn">Submit &amp; Start Free 7-Day Trial →</button>
-        </form>
+    <section class="kpi-strip">
+      <article class="kpi-card">
+        <strong>6:30 AM GMT</strong>
+        <span>Daily Weekday Inbox Delivery</span>
+      </article>
+      <article class="kpi-card">
+        <strong>£10k – £122k</strong>
+        <span>Below-Threshold SME Sweet Spot</span>
+      </article>
+      <article class="kpi-card">
+        <strong>24 Sectors</strong>
+        <span>All 12 UK Nations &amp; Regions</span>
+      </article>
+      <article class="kpi-card">
+        <strong>5 Briefs Free</strong>
+        <span>7-Day Trial • Zero Card Required</span>
       </article>
     </section>
 
-    <section id="p-samples" class="panel">
-      <h2 style="text-align:center;margin-bottom:16px;">Example 6:30 AM Tender Briefs</h2>
-      <article class="grid">
-        <aside class="card">
-          <span class="tag">Cleaning • South East • £48,000</span>
-          <h3>Daily Classroom &amp; Office Cleaning — Oxfordshire Academy Trust</h3>
+    <!-- PANEL 1: FREE 7-DAY TRIAL FORM -->
+    <section id="panel-trial" class="tab-panel">
+      <section class="trial-layout">
+        <article class="form-container">
+          <h2>Activate Your Free 7-Day Custom Tender Feed</h2>
+          <p class="form-sub">Receive 5 consecutive weekday morning briefings tailored to your company. No credit card required—continue after 7 days for £199/month or cancel anytime.</p>
+
+          <form action="https://web3forms.com" method="POST">
+            <input type="hidden" name="access_key" value="0b8dbf87-5620-4734-817d-25fda4336d27" />
+            <input type="hidden" name="subject" value="New BidScout UK 7-Day Free Trial Request!" />
+            <input type="hidden" name="from_name" value="BidScout UK" />
+            <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off" />
+
+            <p class="field-group">
+              <label for="company">Registered UK Company Name</label>
+              <input type="text" id="company" name="company" placeholder="e.g. Thames Valley Commercial Cleaning Ltd" required />
+            </p>
+
+            <p class="field-group">
+              <label for="email">Company Work Email (Required for Business Verification)</label>
+              <input type="email" id="email" name="email" placeholder="you@yourcompany.co.uk" required />
+            </p>
+
+            <p class="field-group">
+              <label for="sector">Primary Service / Trade (24 Sectors Supported)</label>
+              <select id="sector" name="sector">
+                <option value="Commercial & School Cleaning">1. Commercial, Office &amp; School Cleaning</option>
+                <option value="Security, CCTV & Manned Guarding">2. Security, CCTV &amp; Manned Guarding</option>
+                <option value="IT Support & Managed Services">3. IT Support, Endpoint &amp; Managed Services</option>
+                <option value="Facilities & Building Maintenance">4. Facilities &amp; Building Maintenance</option>
+                <option value="Grounds Maintenance & Landscaping">5. Grounds Maintenance, Tree Surgery &amp; Landscaping</option>
+                <option value="Electrical & Mechanical (M&E)">6. Electrical &amp; Mechanical (M&amp;E) Engineering</option>
+                <option value="HVAC, Plumbing & Heating">7. HVAC, Commercial Plumbing &amp; Boiler Maintenance</option>
+                <option value="Roofing, Glazing & Building Fabric">8. Roofing, Glazing &amp; Building Fabric Repairs</option>
+                <option value="Painting, Decorating & Refurbishment">9. Painting, Decorating &amp; Interior Refurbishment</option>
+                <option value="Fire Safety & Compliance Testing">10. Fire Safety, Alarms &amp; PAT Compliance Testing</option>
+                <option value="Asbestos, Legionella & Environmental">11. Asbestos, Legionella &amp; Water Hygiene</option>
+                <option value="Waste Management & Recycling">12. Commercial Waste Management &amp; Recycling</option>
+                <option value="Pest Control & Washroom Hygiene">13. Pest Control &amp; Washroom Hygiene Services</option>
+                <option value="Catering & Hospitality Services">14. Contract Catering &amp; Hospitality Services</option>
+                <option value="Courier, Transport & Fleet Logistics">15. Courier, Specialist Transport &amp; Fleet Logistics</option>
+                <option value="Scaffolding, Access & Plant Hire">16. Scaffolding, Access Equipment &amp; Plant Hire</option>
+                <option value="Signage, Print & Branded Goods">17. Signage, Print &amp; Branded Workwear</option>
+                <option value="Training, HR & Recruitment">18. Vocational Training, HR &amp; Recruitment</option>
+                <option value="Marketing, Design & Web Development">19. Marketing, Graphic Design &amp; Web Development</option>
+                <option value="Cybersecurity & Cloud Infrastructure">20. Cybersecurity, Penetration Testing &amp; Cloud</option>
+                <option value="Consultancy & Professional Services">21. Management Consultancy &amp; Surveying</option>
+                <option value="Solar, EV Charging & Energy Retrofit">22. Solar PV, EV Charging &amp; Energy Retrofit</option>
+                <option value="Healthcare & Clinical Support">23. Healthcare Staffing &amp; Clinical Support</option>
+                <option value="Other UK B2B Service">24. Other UK B2B Service</option>
+              </select>
+            </p>
+
+            <p class="field-group">
+              <label for="region">Target UK Nation / Region (All 12 Regions)</label>
+              <select id="region" name="region">
+                <option value="London & Greater London">London &amp; Greater London (All 32 Boroughs + City)</option>
+                <option value="South East (Oxfordshire, Berks, Bucks, Surrey, Kent, Hants)">South East (Oxon, Berks, Bucks, Surrey, Kent, Hants)</option>
+                <option value="South West (Bristol, Devon, Dorset, Somerset, Wilts)">South West (Bristol, Devon, Dorset, Somerset, Wilts)</option>
+                <option value="East of England (Cambs, Essex, Herts, Norfolk, Suffolk)">East of England (Cambs, Essex, Herts, Norfolk, Suffolk)</option>
+                <option value="West Midlands (Birmingham, Coventry, Staffs, Warks)">West Midlands (Birmingham, Coventry, Staffs, Warks)</option>
+                <option value="East Midlands (Nottingham, Leicester, Derby, Lincs)">East Midlands (Nottingham, Leicester, Derby, Lincs)</option>
+                <option value="North West (Manchester, Liverpool, Lancs, Cheshire)">North West (Manchester, Liverpool, Lancs, Cheshire)</option>
+                <option value="Yorkshire & The Humber (Leeds, Sheffield, Bradford, York)">Yorkshire &amp; The Humber (Leeds, Sheffield, Bradford, York)</option>
+                <option value="North East (Newcastle, Durham, Sunderland, Teesside)">North East (Newcastle, Durham, Sunderland, Teesside)</option>
+                <option value="Scotland">Scotland (Central Belt, Highlands &amp; Islands)</option>
+                <option value="Wales">Wales (South, Mid &amp; North Wales)</option>
+                <option value="UK-Wide / Remote Delivery">UK-Wide / Remote Delivery</option>
+              </select>
+            </p>
+
+            <p class="field-group">
+              <label for="budget">Preferred Contract Value Band</label>
+              <select id="budget" name="budget">
+                <option value="£10k – £122k (All Below-Threshold SME Quotes)">£10k – £122k (All Below-Threshold SME Quotes)</option>
+                <option value="£10k – £35k (Fast-Turnaround Direct Quotes)">£10k – £35k (Fast-Turnaround Direct Quotes)</option>
+                <option value="£35k – £75k (Mid-Size Local Authority & School Contracts)">£35k – £75k (Mid-Size Local Authority &amp; School Contracts)</option>
+                <option value="£75k – £122k (Multi-Year Council & NHS Tenders)">£75k – £122k (Multi-Year Council &amp; NHS Tenders)</option>
+              </select>
+            </p>
+
+            <p class="field-group">
+              <label for="recipients">Additional Team Recipients (Optional)</label>
+              <input type="text" id="recipients" name="recipients" placeholder="e.g. bids@yourcompany.co.uk, director@yourcompany.co.uk" />
+            </p>
+
+            <p class="field-group">
+              <label for="keywords">Exact Keywords &amp; Negative Exclusions</label>
+              <textarea id="keywords" name="keywords" placeholder="Include: daily office cleaning, school cleaning, Oxfordshire, Reading&#10;Exclude: exterior window cleaning, clinical waste, graffiti removal" required></textarea>
+            </p>
+
