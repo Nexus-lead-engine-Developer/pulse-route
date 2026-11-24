@@ -3,150 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TenderPing UK — Daily Sub-£122k UK Government & Council Contracts</title>
+  <title>TenderPing UK — Sub-£122k UK Government & Council Contracts</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    html { scroll-behavior: smooth; }
     body { background: #070b14; color: #f8fafc; line-height: 1.6; }
-    a { color: inherit; text-decoration: none; }
-
-    header { position: sticky; top: 0; z-index: 100; background: #070b14; border-bottom: 1px solid #1e293b; }
-    .nav { max-width: 1000px; margin: 0 auto; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 20px; font-weight: 800; }
-    .logo span { color: #38bdf8; }
-    .menu { display: flex; gap: 22px; align-items: center; font-size: 14px; color: #94a3b8; }
-    .menu a:hover { color: #ffffff; }
-    .menu .btn-sm { background: #0284c7; color: #ffffff; padding: 8px 14px; border-radius: 6px; font-weight: 700; }
-
-    main { max-width: 1000px; margin: 0 auto; padding: 48px 24px 80px; }
-
-    .hero { text-align: center; max-width: 780px; margin: 0 auto 44px; }
-    .pill { display: inline-block; background: #111827; border: 1px solid #1e293b; color: #38bdf8; font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 99px; margin-bottom: 16px; }
-    h1 { font-size: 42px; line-height: 1.15; font-weight: 800; margin-bottom: 14px; }
-    h1 span { color: #38bdf8; }
-    .hero p { font-size: 18px; color: #94a3b8; }
-
-    .form-box { max-width: 680px; margin: 0 auto 72px; background: #111827; border: 1px solid #1f2937; border-radius: 14px; padding: 32px; }
-    .form-box h2 { font-size: 24px; margin-bottom: 6px; }
-    .form-box .sub { font-size: 14px; color: #94a3b8; margin-bottom: 20px; }
-    .field { margin-bottom: 16px; }
-    .field label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 6px; }
-    .field input, .field select { width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #f8fafc; font-size: 15px; }
-    .field input:focus, .field select:focus { outline: none; border-color: #38bdf8; }
-    .btn-submit { width: 100%; padding: 16px; margin-top: 8px; background: #10b981; color: #042f2e; font-size: 16px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; }
-    .btn-submit:hover { background: #34d399; }
-    .fallback { text-align: center; margin-top: 14px; font-size: 13px; color: #94a3b8; }
-    .fallback a { color: #38bdf8; text-decoration: underline; }
-
-    section { padding-top: 64px; scroll-margin-top: 72px; }
-    .sec-title { text-align: center; margin-bottom: 28px; }
-    .sec-title h2 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
-    .sec-title p { color: #94a3b8; font-size: 15px; }
-
-    .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    header { background: #0b1120; border-bottom: 1px solid #1e293b; padding: 14px 24px; position: sticky; top: 0; z-index: 99; }
+    .nav { max-width: 980px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .brand { font-size: 20px; font-weight: 800; color: #fff; text-decoration: none; }
+    .brand span { color: #38bdf8; }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tab-btn { background: #1e293b; color: #cbd5e1; border: 1px solid #334155; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .tab-btn:hover, .tab-btn.active { background: #0284c7; color: #fff; border-color: #0284c7; }
+    main { max-width: 980px; margin: 0 auto; padding: 36px 24px 72px; }
+    .hero { text-align: center; margin-bottom: 32px; }
+    .hero h1 { font-size: 36px; font-weight: 800; line-height: 1.15; margin-bottom: 10px; }
+    .hero h1 span { color: #38bdf8; }
+    .hero p { color: #94a3b8; font-size: 16px; max-width: 720px; margin: 0 auto; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .box { max-width: 640px; margin: 0 auto; background: #111827; border: 1px solid #1f2937; border-radius: 14px; padding: 28px; }
+    .box h2 { font-size: 22px; margin-bottom: 4px; }
+    .box .hint { font-size: 13px; color: #94a3b8; margin-bottom: 18px; }
+    form p { margin-bottom: 14px; }
+    label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 5px; }
+    input, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; }
+    .go-btn { width: 100%; padding: 16px; margin-top: 8px; background: #10b981; color: #042f2e; font-size: 16px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; }
+    .go-btn:hover { background: #34d399; }
+    .mail-alt { text-align: center; margin-top: 14px; font-size: 13px; color: #94a3b8; }
+    .mail-alt a { color: #38bdf8; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; margin-top: 16px; }
     .card { background: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 22px; }
-    .card .tag { font-size: 12px; font-weight: 700; color: #38bdf8; text-transform: uppercase; margin-bottom: 8px; display: block; }
-    .card h3 { font-size: 17px; margin-bottom: 8px; color: #f8fafc; }
+    .tag { font-size: 12px; font-weight: 700; color: #38bdf8; text-transform: uppercase; display: block; margin-bottom: 6px; }
+    .card h3 { font-size: 17px; margin-bottom: 8px; }
     .card p { font-size: 14px; color: #94a3b8; margin-bottom: 6px; }
-
-    .pricing { max-width: 500px; margin: 0 auto; background: #111827; border: 2px solid #0284c7; border-radius: 14px; padding: 32px; text-align: center; }
-    .pricing .price { font-size: 42px; font-weight: 800; margin: 10px 0; }
-    .pricing .price span { font-size: 16px; color: #94a3b8; font-weight: 500; }
-    .pricing ul { list-style: none; text-align: left; margin: 20px 0 24px; }
-    .pricing li { padding: 8px 0; border-bottom: 1px solid #1f2937; font-size: 14px; color: #cbd5e1; }
-    .pricing .btn-cta { display: block; padding: 14px; background: #0284c7; color: #fff; font-weight: 700; border-radius: 8px; }
-
-    .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .faq-box { background: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 20px; }
-    .faq-box h4 { font-size: 16px; margin-bottom: 6px; color: #f1f5f9; }
-    .faq-box p { font-size: 14px; color: #94a3b8; }
-
-    footer { text-align: center; font-size: 13px; color: #64748b; margin-top: 72px; padding-top: 24px; border-top: 1px solid #1e293b; }
-
-    @media (max-width: 768px) {
-      h1 { font-size: 30px; }
-      .cards-3, .faq { grid-template-columns: 1fr; }
-      .menu { display: none; }
-    }
+    .price-card { max-width: 480px; margin: 0 auto; background: #111827; border: 2px solid #0284c7; border-radius: 14px; padding: 30px; text-align: center; }
+    .price-num { font-size: 42px; font-weight: 800; margin: 10px 0; }
+    .price-card ul { list-style: none; text-align: left; margin: 18px 0 24px; }
+    .price-card li { padding: 8px 0; border-bottom: 1px solid #1f2937; font-size: 14px; color: #cbd5e1; }
+    footer { text-align: center; font-size: 13px; color: #64748b; margin-top: 56px; padding-top: 20px; border-top: 1px solid #1e293b; }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="nav">
-      <a href="#" class="logo">Tender<span>Ping</span> UK</a>
-      <nav class="menu">
-        <a href="#samples">Sample Briefs</a>
-        <a href="#how">How It Works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-        <a href="#trial" class="btn-sm">Free 7-Day Trial</a>
-      </nav>
-    </div>
+    <nav class="nav">
+      <a href="#" class="brand" onclick="showTab('trial', this); return false;">Tender<span>Ping</span> UK</a>
+      <section class="tabs">
+        <button type="button" class="tab-btn active" onclick="showTab('trial', this)">Free 7-Day Trial</button>
+        <button type="button" class="tab-btn" onclick="showTab('samples', this)">Sample Briefs</button>
+        <button type="button" class="tab-btn" onclick="showTab('how', this)">How It Works</button>
+        <button type="button" class="tab-btn" onclick="showTab('pricing', this)">Pricing</button>
+        <button type="button" class="tab-btn" onclick="showTab('faq', this)">FAQ</button>
+      </section>
+    </nav>
   </header>
 
   <main>
-    <div class="hero">
-      <span class="pill">UK Contracts Finder Automated Feed • Mon–Fri at 6:30 AM</span>
+    <section class="hero">
       <h1>Win <span>£10k–£122k</span> Local Council, School &amp; NHS Contracts Without Searching.</h1>
-      <p>Every weekday at 6:30 am, TenderPing scans official UK public-sector notices, strips out £5m corporate frameworks, and emails plain-English briefs tailored to your exact trade and region.</p>
-    </div>
+      <p>Every weekday at 6:30 am, TenderPing scans official UK Contracts Finder notices, strips out £5m corporate frameworks, and emails plain-English briefs tailored to your trade.</p>
+    </section>
 
-    <div class="form-box" id="trial">
-      <h2>Start Your Free 7-Day Custom Tender Feed</h2>
-      <p class="sub">5 full weekday morning briefings. No credit card required—continue after 7 days for £199/month or cancel anytime.</p>
+    <section id="trial" class="panel active">
+      <article class="box">
+        <h2>Start Your Free 7-Day Custom Tender Feed</h2>
+        <p class="hint">5 full weekday morning briefings. No credit card required—continue after 7 days for £199/month or cancel anytime.</p>
 
-      <form action="https://web3forms.com" method="POST">
-        <input type="hidden" name="access_key" value="0b8dbf87-5620-4734-817d-25fda4336d27" />
-        <input type="hidden" name="subject" value="New TenderPing 7-Day Free Trial Request!" />
-        <input type="hidden" name="from_name" value="TenderPing UK" />
+        <form action="https://web3forms.com" method="POST">
+          <input type="hidden" name="access_key" value="0b8dbf87-5620-4734-817d-25fda4336d27" />
+          <input type="hidden" name="subject" value="New TenderPing 7-Day Free Trial Request!" />
+          <input type="hidden" name="from_name" value="TenderPing UK" />
 
-        <div class="field">
-          <label for="company">Company Name</label>
-          <input type="text" id="company" name="company" placeholder="e.g. Thames Valley Commercial Cleaning Ltd" required />
-        </div>
+          <p>
+            <label for="company">Company Name</label>
+            <input type="text" id="company" name="company" placeholder="e.g. Thames Valley Commercial Cleaning Ltd" required />
+          </p>
 
-        <div class="field">
-          <label for="email">Work Email</label>
-          <input type="email" id="email" name="email" placeholder="you@company.co.uk" required />
-        </div>
+          <p>
+            <label for="email">Work Email</label>
+            <input type="email" id="email" name="email" placeholder="you@company.co.uk" required />
+          </p>
 
-        <div class="field">
-          <label for="sector">Primary Service / Trade</label>
-          <select id="sector" name="sector">
-            <option value="Commercial & School Cleaning">Commercial &amp; School Cleaning</option>
-            <option value="Security, CCTV & Manned Guarding">Security, CCTV &amp; Manned Guarding</option>
-            <option value="IT Support & Managed Services">IT Support &amp; Managed Services</option>
-            <option value="Facilities & Building Maintenance">Facilities &amp; Building Maintenance</option>
-            <option value="Grounds Maintenance & Landscaping">Grounds Maintenance &amp; Landscaping</option>
-            <option value="Electrical & Mechanical (M&E)">Electrical &amp; Mechanical (M&amp;E)</option>
-            <option value="HVAC, Plumbing & Heating">HVAC, Plumbing &amp; Heating</option>
-            <option value="Roofing, Glazing & Building Fabric">Roofing, Glazing &amp; Building Fabric</option>
-            <option value="Painting, Decorating & Refurbishment">Painting, Decorating &amp; Refurbishment</option>
-            <option value="Fire Safety & Compliance Testing">Fire Safety &amp; Compliance Testing</option>
-            <option value="Waste Management & Recycling">Waste Management &amp; Recycling</option>
-            <option value="Pest Control & Hygiene Services">Pest Control &amp; Hygiene Services</option>
-            <option value="Catering & Hospitality Services">Catering &amp; Hospitality Services</option>
-            <option value="Courier, Transport & Fleet Logistics">Courier, Transport &amp; Fleet Logistics</option>
-            <option value="Training, HR & Recruitment">Training, HR &amp; Recruitment</option>
-            <option value="Marketing, Design & Web Development">Marketing, Design &amp; Web Development</option>
-            <option value="Consultancy & Professional Services">Consultancy &amp; Professional Services</option>
-            <option value="Solar, EV Charging & Energy Retrofit">Solar, EV Charging &amp; Energy Retrofit</option>
-            <option value="Other UK B2B Service">Other UK B2B Service</option>
-          </select>
-        </div>
+          <p>
+            <label for="sector">Primary Service / Trade</label>
+            <select id="sector" name="sector">
+              <option value="Commercial & School Cleaning">Commercial &amp; School Cleaning</option>
+              <option value="Security, CCTV & Manned Guarding">Security, CCTV &amp; Manned Guarding</option>
+              <option value="IT Support & Managed Services">IT Support &amp; Managed Services</option>
+              <option value="Facilities & Building Maintenance">Facilities &amp; Building Maintenance</option>
+              <option value="Grounds Maintenance & Landscaping">Grounds Maintenance &amp; Landscaping</option>
+              <option value="Electrical & Mechanical (M&E)">Electrical &amp; Mechanical (M&E)</option>
+              <option value="HVAC, Plumbing & Heating">HVAC, Plumbing &amp; Heating</option>
+              <option value="Fire Safety & Compliance Testing">Fire Safety &amp; Compliance Testing</option>
+              <option value="Waste Management & Recycling">Waste Management &amp; Recycling</option>
+              <option value="Catering & Hospitality Services">Catering &amp; Hospitality Services</option>
+              <option value="Solar, EV Charging & Energy Retrofit">Solar, EV Charging &amp; Energy Retrofit</option>
+              <option value="Other UK B2B Service">Other UK B2B Service</option>
+            </select>
+          </p>
 
-        <div class="field">
-          <label for="region">Target UK Region</label>
-          <select id="region" name="region">
-            <option value="London & Greater London">London &amp; Greater London</option>
-            <option value="South East (Oxfordshire, Berks, Bucks, Surrey, Kent)">South East (Oxon, Berks, Bucks, Surrey, Kent)</option>
-            <option value="South West (Bristol, Devon, Dorset, Wilts)">South West (Bristol, Devon, Dorset, Wilts)</option>
-            <option value="East of England (Cambs, Essex, Herts, Norfolk)">East of England (Cambs, Essex, Herts, Norfolk)</option>
-            <option value="West Midlands (Birmingham, Coventry, Staffs)">West Midlands (Birmingham, Coventry, Staffs)</option>
-            <option value="East Midlands (Nottingham, Leicester, Derby)">East Midlands (Nottingham, Leicester, Derby)</option>
-            <option value="North West (Manchester, Liverpool, Lancs)">North West (Manchester, Liverpool, Lancs)</option>
-            <option value="Yorkshire & The Humber (Leeds, Sheffield)">Yorkshire &amp; The Humber (Leeds, Sheffield)</option>
-            <option value="North East (Newcastle, Durham, Teesside)">North East (Newcastle, Durham, Teesside)</option>
-            <option value="Scotland">Scotland</option>
-            <option value="Wales">Wales</option>
+          <p>
+            <label for="region">Target UK Region</label>
+            <select id="region" name="region">
+              <option value="London & Greater London">London &amp; Greater London</option>
+              <option value="South East (Oxfordshire, Berks, Bucks, Surrey, Kent)">South East (Oxon, Berks, Bucks, Surrey, Kent)</option>
+              <option value="South West (Bristol, Devon, Dorset, Wilts)">South West (Bristol, Devon, Dorset, Wilts)</option>
+              <option value="East of England (Cambs, Essex, Herts, Norfolk)">East of England (Cambs, Essex, Herts, Norfolk)</option>
+              <option value="West Midlands (Birmingham, Coventry, Staffs)">West Midlands (Birmingham, Coventry, Staffs)</option>
+              <option value="East Midlands (Nottingham, Leicester, Derby)">East Midlands (Nottingham, Leicester, Derby)</option>
+              <option value="North West (Manchester, Liverpool, Lancs)">North West (Manchester, Liverpool, Lancs)</option>
+              <option value="Yorkshire & The Humber (Leeds, Sheffield)">Yorkshire &amp; The Humber (Leeds, Sheffield)</option>
+              <option value="North East (Newcastle, Durham, Teesside)">North East (Newcastle, Durham, Teesside)</option>
+              <option value="Scotland">Scotland</option>
+              <option value="Wales">Wales</option>
+              <option value="UK-Wide / Remote Delivery">UK-Wide / Remote Delivery</option>
+            </select>
+          </p>
+
+          <p>
+            <label for="keywords">Exact Keywords &amp; Exclusions</label>
+            <input type="text" id="keywords" name="keywords" placeholder="e.g. office cleaning, school cleaning, Oxfordshire" required />
+          </p>
+
+          <button type="submit" class="go-btn">Submit &amp; Start Free 7-Day Trial →</button>
+        </form>
+
+        <p class="mail-alt">Prefer direct email? <a href="mailto:sebastianvtesta@://gmail.com">Click here to email your keywords directly</a>.</p>
+      </article>
+    </section>
+
+    <section id="samples" class="panel">
+      <h2 style="text-align:center;margin-bottom:16px;">Example 6:30 AM Tender Briefs</h2>
+      <article class="grid">
+        <aside class="card">
+          <span class="tag">Cleaning • South East • £48,000</span>
+          <h3>Daily Classroom &amp; Office Cleaning — Oxfordshire Academy Trust</h3>
+          <p><strong>Buyer:</strong> Vale Multi-Academy Trust (Abingdon)</p>
+          <p><strong>Term:</strong> 24 Months • <strong>Deadline:</strong> 12 Dec, 12:00 pm</p>
+        </aside>
+        <aside class="card">
+          <span class="tag">Security • London • £85,000</span>
+          <h3>Out-of-Hours Manned Guarding &amp; Keyholding — Civic Centre</h3>
+          <p><strong>Buyer:</strong> London Borough Council</p>
+          <p><strong>Term:</strong> 12 Months • <strong>Deadline:</strong> 18 Dec, 5:00 pm</p>
+        </aside>
+        <aside class="card">
