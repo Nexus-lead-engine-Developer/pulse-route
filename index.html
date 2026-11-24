@@ -16,9 +16,8 @@
     .card p.hint { font-size: 14px; color: #94a3b8; margin-bottom: 18px; }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 6px; margin-top: 14px; }
-    input, select, textarea { width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #f8fafc; font-size: 15px; }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: #38bdf8; }
-    textarea { resize: vertical; min-height: 80px; }
+    input, select { width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #f8fafc; font-size: 15px; }
+    input:focus, select:focus { outline: none; border-color: #38bdf8; }
     button { width: 100%; margin-top: 24px; padding: 15px; background: #0284c7; color: white; font-size: 16px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; }
     button:hover { background: #0369a1; }
     .alt-link { text-align: center; margin-top: 14px; font-size: 13px; color: #94a3b8; }
@@ -127,3 +126,7 @@
           </div>
           <div>
             <label for="recipients">Extra Team Emails (Optional)</label>
+            <input type="text" id="recipients" name="recipients" placeholder="e.g. bids@company.co.uk" />
+          </div>
+        </div>
+
