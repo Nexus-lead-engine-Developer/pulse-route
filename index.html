@@ -7,28 +7,37 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: #070b14; color: #f8fafc; line-height: 1.6; }
+    input.tab-radio { display: none; }
     header { background: #0b1120; border-bottom: 1px solid #1e293b; padding: 14px 24px; position: sticky; top: 0; z-index: 99; }
     .nav { max-width: 980px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .brand { font-size: 20px; font-weight: 800; color: #fff; text-decoration: none; }
+    .brand { font-size: 20px; font-weight: 800; color: #fff; cursor: pointer; }
     .brand span { color: #38bdf8; }
     .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-    .tab-btn { background: #1e293b; color: #cbd5e1; border: 1px solid #334155; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; }
-    .tab-btn:hover, .tab-btn.active { background: #0284c7; color: #fff; border-color: #0284c7; }
+    .tab-lbl { background: #1e293b; color: #cbd5e1; border: 1px solid #334155; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; user-select: none; }
+    .tab-lbl:hover { background: #0284c7; color: #fff; border-color: #0284c7; }
+    #t-trial:checked ~ header label[for="t-trial"],
+    #t-samples:checked ~ header label[for="t-samples"],
+    #t-how:checked ~ header label[for="t-how"],
+    #t-pricing:checked ~ header label[for="t-pricing"],
+    #t-faq:checked ~ header label[for="t-faq"] { background: #0284c7; color: #fff; border-color: #0284c7; }
     main { max-width: 980px; margin: 0 auto; padding: 36px 24px 72px; }
     .hero { text-align: center; margin-bottom: 32px; }
     .hero h1 { font-size: 36px; font-weight: 800; line-height: 1.15; margin-bottom: 10px; }
     .hero h1 span { color: #38bdf8; }
     .hero p { color: #94a3b8; font-size: 16px; max-width: 720px; margin: 0 auto; }
     .panel { display: none; }
-    .panel.active { display: block; }
+    #t-trial:checked ~ main #p-trial,
+    #t-samples:checked ~ main #p-samples,
+    #t-how:checked ~ main #p-how,
+    #t-pricing:checked ~ main #p-pricing,
+    #t-faq:checked ~ main #p-faq { display: block; }
     .box { max-width: 640px; margin: 0 auto; background: #111827; border: 1px solid #1f2937; border-radius: 14px; padding: 28px; }
     .box h2 { font-size: 22px; margin-bottom: 4px; }
     .box .hint { font-size: 13px; color: #94a3b8; margin-bottom: 18px; }
     form p { margin-bottom: 14px; }
-    label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 5px; }
-    input, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; }
-    .warn { display: none; color: #f87171; font-size: 13px; margin-bottom: 12px; font-weight: 600; }
-    .go-btn { width: 100%; padding: 16px; margin-top: 8px; background: #10b981; color: #042f2e; font-size: 16px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; }
+    form label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 5px; }
+    input[type="text"], input[type="email"], select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; }
+    .go-btn { display: block; width: 100%; padding: 16px; margin-top: 8px; background: #10b981; color: #042f2e; font-size: 16px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; text-align: center; }
     .go-btn:hover { background: #34d399; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; margin-top: 16px; }
     .card { background: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 22px; }
@@ -44,15 +53,21 @@
 </head>
 <body>
 
+  <input type="radio" name="navtab" id="t-trial" class="tab-radio" checked />
+  <input type="radio" name="navtab" id="t-samples" class="tab-radio" />
+  <input type="radio" name="navtab" id="t-how" class="tab-radio" />
+  <input type="radio" name="navtab" id="t-pricing" class="tab-radio" />
+  <input type="radio" name="navtab" id="t-faq" class="tab-radio" />
+
   <header>
     <nav class="nav">
-      <a href="#" class="brand" onclick="showTab('trial', this); return false;">Bid<span>Scout</span> UK</a>
+      <label for="t-trial" class="brand">Bid<span>Scout</span> UK</label>
       <section class="tabs">
-        <button type="button" class="tab-btn active" onclick="showTab('trial', this)">Free 7-Day Trial</button>
-        <button type="button" class="tab-btn" onclick="showTab('samples', this)">Sample Briefs</button>
-        <button type="button" class="tab-btn" onclick="showTab('how', this)">How It Works</button>
-        <button type="button" class="tab-btn" onclick="showTab('pricing', this)">Pricing</button>
-        <button type="button" class="tab-btn" onclick="showTab('faq', this)">FAQ</button>
+        <label for="t-trial" class="tab-lbl">Free 7-Day Trial</label>
+        <label for="t-samples" class="tab-lbl">Sample Briefs</label>
+        <label for="t-how" class="tab-lbl">How It Works</label>
+        <label for="t-pricing" class="tab-lbl">Pricing</label>
+        <label for="t-faq" class="tab-lbl">FAQ</label>
       </section>
     </nav>
   </header>
@@ -63,12 +78,12 @@
       <p>Every weekday at 6:30 am, BidScout scans official UK Contracts Finder notices, strips out £5m corporate frameworks, and emails plain-English briefs tailored to your trade.</p>
     </section>
 
-    <section id="trial" class="panel active">
+    <section id="p-trial" class="panel">
       <article class="box">
         <h2>Start Your Free 7-Day Custom Tender Feed</h2>
         <p class="hint">5 full weekday morning briefings for verified UK businesses. No credit card required—£199/month after 7 days or cancel anytime.</p>
 
-        <form id="trialForm" action="https://web3forms.com" method="POST">
+        <form action="https://web3forms.com" method="POST">
           <input type="hidden" name="access_key" value="0b8dbf87-5620-4734-817d-25fda4336d27" />
           <input type="hidden" name="subject" value="New BidScout UK 7-Day Free Trial Request!" />
           <input type="hidden" name="from_name" value="BidScout UK" />
@@ -80,7 +95,7 @@
           </p>
 
           <p>
-            <label for="email">Company Work Email (No Personal Gmail/Yahoo)</label>
+            <label for="email">Company Work Email</label>
             <input type="email" id="email" name="email" placeholder="you@yourcompany.co.uk" required />
           </p>
 
@@ -125,22 +140,14 @@
             <input type="text" id="keywords" name="keywords" placeholder="e.g. office cleaning, school cleaning, Oxfordshire" required />
           </p>
 
-          <p id="emailWarn" class="warn">Please use your company domain email (e.g. name@yourcompany.co.uk) so we can verify your business for the free trial.</p>
           <button type="submit" class="go-btn">Submit &amp; Start Free 7-Day Trial →</button>
         </form>
       </article>
     </section>
 
-    <section id="samples" class="panel">
+    <section id="p-samples" class="panel">
       <h2 style="text-align:center;margin-bottom:16px;">Example 6:30 AM Tender Briefs</h2>
       <article class="grid">
         <aside class="card">
           <span class="tag">Cleaning • South East • £48,000</span>
           <h3>Daily Classroom &amp; Office Cleaning — Oxfordshire Academy Trust</h3>
-          <p><strong>Buyer:</strong> Vale Multi-Academy Trust (Abingdon)</p>
-          <p><strong>Term:</strong> 24 Months • <strong>Deadline:</strong> 12 Dec, 12:00 pm</p>
-        </aside>
-        <aside class="card">
-          <span class="tag">Security • London • £85,000</span>
-          <h3>Out-of-Hours Manned Guarding &amp; Keyholding — Civic Centre</h3>
-          <p><strong>Buyer:</strong> London Borough Council</p>
