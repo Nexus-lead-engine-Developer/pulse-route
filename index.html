@@ -6,45 +6,139 @@
   <title>TenderPing UK — Daily Sub-£122k UK Government & Council Contracts</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: #090d16; color: #f8fafc; line-height: 1.6; }
-    .container { max-width: 860px; margin: 0 auto; padding: 48px 24px; }
-    .badge { display: inline-block; background: #1e293b; color: #38bdf8; font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; border: 1px solid #334155; }
-    h1 { font-size: 40px; line-height: 1.15; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
-    p.sub { font-size: 18px; color: #94a3b8; margin-bottom: 32px; }
-    .card { background: #111827; border: 1px solid #1f2937; border-radius: 14px; padding: 32px; margin-bottom: 36px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-    .card h2 { font-size: 22px; margin-bottom: 6px; color: #f1f5f9; }
+    html { scroll-behavior: smooth; }
+    body { background: #070b14; color: #f8fafc; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+
+    /* Navbar */
+    .nav { position: sticky; top: 0; z-index: 50; background: rgba(7, 11, 20, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid #1e293b; }
+    .nav-inner { max-width: 1060px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; }
+    .brand span { color: #38bdf8; }
+    .nav-links { display: flex; align-items: center; gap: 24px; font-size: 14px; color: #94a3b8; }
+    .nav-links a:hover { color: #f8fafc; }
+    .nav-cta { background: #0284c7; color: #fff !important; font-weight: 700; padding: 8px 16px; border-radius: 8px; font-size: 13px; }
+    .nav-cta:hover { background: #0369a1; }
+
+    .container { max-width: 1060px; margin: 0 auto; padding: 48px 24px 72px; }
+
+    /* Hero */
+    .hero { text-align: center; max-width: 820px; margin: 0 auto 44px; }
+    .badge { display: inline-block; background: #111827; color: #38bdf8; font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; border: 1px solid #1e293b; }
+    h1 { font-size: 44px; line-height: 1.12; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.025em; }
+    h1 span { color: #38bdf8; }
+    p.sub { font-size: 18px; color: #94a3b8; margin-bottom: 28px; }
+
+    /* Stats Strip */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 48px; }
+    .stat { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; text-align: center; }
+    .stat strong { display: block; font-size: 22px; color: #38bdf8; font-weight: 800; }
+    .stat span { font-size: 13px; color: #94a3b8; }
+
+    /* Form Card */
+    .card { background: #111827; border: 1px solid #1f2937; border-radius: 16px; padding: 34px; margin-bottom: 64px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); max-width: 860px; margin-left: auto; margin-right: auto; }
+    .card h2 { font-size: 24px; margin-bottom: 6px; color: #f1f5f9; }
     .card p.hint { font-size: 14px; color: #94a3b8; margin-bottom: 18px; }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 6px; margin-top: 14px; }
     input, select { width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #f8fafc; font-size: 15px; }
     input:focus, select:focus { outline: none; border-color: #38bdf8; }
-    button { width: 100%; margin-top: 24px; padding: 15px; background: #0284c7; color: white; font-size: 16px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; }
+    button { width: 100%; margin-top: 22px; padding: 16px; background: #0284c7; color: white; font-size: 16px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; }
     button:hover { background: #0369a1; }
     .alt-link { text-align: center; margin-top: 14px; font-size: 13px; color: #94a3b8; }
     .alt-link a { color: #38bdf8; text-decoration: underline; }
-    .section-title { font-size: 22px; font-weight: 700; margin-top: 40px; margin-bottom: 16px; color: #f1f5f9; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-    .feat { background: #111827; border: 1px solid #1f2937; padding: 20px; border-radius: 10px; }
-    .feat h3 { font-size: 16px; color: #38bdf8; margin-bottom: 6px; }
+
+    /* Section Headings */
+    .sec-head { text-align: center; max-width: 680px; margin: 64px auto 28px; }
+    .sec-head h2 { font-size: 30px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .sec-head p { font-size: 16px; color: #94a3b8; }
+
+    /* Sample Briefs */
+    .samples-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .sample { background: #0f172a; border-top: 4px solid #38bdf8; border-left: 1px solid #1e293b; border-right: 1px solid #1e293b; border-bottom: 1px solid #1e293b; padding: 22px; border-radius: 12px; display: flex; flex-direction: column; justify-content: space-between; }
+    .sample-tag { font-size: 11px; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.05em; }
+    .sample h4 { font-size: 17px; color: #f8fafc; margin: 8px 0 10px; line-height: 1.35; }
+    .sample p { font-size: 13px; color: #cbd5e1; margin-bottom: 6px; }
+    .sample-foot { margin-top: 12px; padding-top: 10px; border-top: 1px solid #1e293b; font-size: 12px; color: #38bdf8; font-weight: 600; }
+
+    /* How It Works */
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feat { background: #111827; border: 1px solid #1f2937; padding: 24px; border-radius: 12px; }
+    .step-num { display: inline-block; background: #1e293b; color: #38bdf8; font-weight: 800; font-size: 12px; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; }
+    .feat h3 { font-size: 18px; color: #f8fafc; margin-bottom: 8px; }
     .feat p { font-size: 14px; color: #94a3b8; }
-    .sample { background: #0f172a; border-left: 4px solid #38bdf8; border-top: 1px solid #1e293b; border-right: 1px solid #1e293b; border-bottom: 1px solid #1e293b; padding: 22px; border-radius: 10px; }
-    .sample-tag { font-size: 12px; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.05em; }
-    .sample h4 { font-size: 18px; color: #f8fafc; margin: 6px 0; }
-    .sample p { font-size: 14px; color: #cbd5e1; margin-bottom: 4px; }
-    .faq-item { background: #111827; border: 1px solid #1f2937; padding: 18px 20px; border-radius: 10px; margin-bottom: 12px; }
-    .faq-item h4 { font-size: 15px; color: #f1f5f9; margin-bottom: 4px; }
+
+    /* Comparison Table */
+    .table-wrap { background: #111827; border: 1px solid #1f2937; border-radius: 14px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 16px 20px; border-bottom: 1px solid #1f2937; font-size: 14px; }
+    th { background: #0f172a; color: #f8fafc; font-weight: 700; }
+    td.bad { color: #94a3b8; }
+    td.good { color: #38bdf8; font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+
+    /* Pricing */
+    .pricing-box { max-width: 540px; margin: 0 auto; background: #111827; border: 2px solid #0284c7; border-radius: 16px; padding: 34px; text-align: center; }
+    .price-tag { font-size: 44px; font-weight: 800; color: #f8fafc; margin: 10px 0 4px; }
+    .price-tag span { font-size: 16px; color: #94a3b8; font-weight: 500; }
+    .price-sub { font-size: 14px; color: #38bdf8; font-weight: 600; margin-bottom: 20px; }
+    .check-list { text-align: left; list-style: none; margin-bottom: 24px; }
+    .check-list li { padding: 8px 0; border-bottom: 1px solid #1f2937; font-size: 14px; color: #cbd5e1; }
+    .check-list li:last-child { border-bottom: none; }
+    .btn-link { display: block; width: 100%; padding: 15px; background: #0284c7; color: #fff; font-weight: 700; border-radius: 8px; font-size: 16px; }
+    .btn-link:hover { background: #0369a1; }
+
+    /* FAQ */
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .faq-item { background: #111827; border: 1px solid #1f2937; padding: 20px; border-radius: 12px; }
+    .faq-item h4 { font-size: 16px; color: #f1f5f9; margin-bottom: 6px; }
     .faq-item p { font-size: 14px; color: #94a3b8; }
-    footer { text-align: center; font-size: 13px; color: #64748b; margin-top: 52px; padding-top: 24px; border-top: 1px solid #1e293b; }
-    @media (max-width: 680px) { h1 { font-size: 30px; } .row, .grid-3 { grid-template-columns: 1fr; } }
+
+    /* Bottom Banner */
+    .cta-banner { margin-top: 64px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 1px solid #334155; border-radius: 16px; padding: 40px 28px; text-align: center; }
+    .cta-banner h2 { font-size: 28px; margin-bottom: 10px; }
+    .cta-banner p { color: #94a3b8; margin-bottom: 22px; font-size: 16px; }
+    .cta-banner a { display: inline-block; background: #0284c7; color: #fff; font-weight: 700; padding: 14px 28px; border-radius: 8px; font-size: 16px; }
+
+    footer { text-align: center; font-size: 13px; color: #64748b; margin-top: 56px; padding-top: 24px; border-top: 1px solid #1e293b; }
+
+    @media (max-width: 820px) {
+      h1 { font-size: 32px; }
+      .stats, .samples-grid, .grid-3, .row, .faq-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <span class="badge">UK Contracts Finder Automated Feed • 6:30 AM Daily</span>
-    <h1>Win £10k–£122k Local Council, School & NHS Contracts Without Searching.</h1>
-    <p class="sub">Every weekday at 6:30 am, TenderPing scans official UK public-sector notices, strips out £5m corporate frameworks, and emails plain-English briefs tailored to your exact trade and region.</p>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="brand">Tender<span>Ping</span> UK</a>
+      <div class="nav-links">
+        <a href="#samples">Sample Briefs</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#compare">Why TenderPing</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#trial-form" class="nav-cta">Free 7-Day Trial</a>
+      </div>
+    </div>
+  </nav>
 
-    <div class="card">
+  <div class="container">
+    <div class="hero">
+      <span class="badge">UK Contracts Finder Automated Feed • Mon–Fri at 6:30 AM</span>
+      <h1>Win <span>£10k–£122k</span> Local Council, School &amp; NHS Contracts Without Searching.</h1>
+      <p class="sub">Every weekday at 6:30 am, TenderPing scans official UK public-sector notices, strips out £5m corporate frameworks, and emails plain-English briefs tailored to your exact trade and region.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><strong>6:30 AM</strong><span>Daily Weekday Delivery</span></div>
+      <div class="stat"><strong>£10k–£122k</strong><span>Below-Threshold SME Sweet Spot</span></div>
+      <div class="stat"><strong>24 Trades</strong><span>Custom Keyword &amp; Region Filters</span></div>
+      <div class="stat"><strong>5 Briefs Free</strong><span>7-Day Trial • Zero Card Required</span></div>
+    </div>
+
+    <div class="card" id="trial-form">
       <h2>Start Your Free 7-Day Custom Tender Feed</h2>
       <p class="hint">5 full weekday morning feeds. No credit card required—continue after 7 days for £199/month or cancel anytime.</p>
 
@@ -66,67 +160,3 @@
 
         <div class="row">
           <div>
-            <label for="sector">Primary Service / Trade (24 Sectors)</label>
-            <select id="sector" name="sector">
-              <option value="Commercial & School Cleaning">1. Commercial & School Cleaning</option>
-              <option value="Security, CCTV & Manned Guarding">2. Security, CCTV & Manned Guarding</option>
-              <option value="IT Support & Managed Services">3. IT Support & Managed Services</option>
-              <option value="Facilities & Building Maintenance">4. Facilities & Building Maintenance</option>
-              <option value="Grounds Maintenance & Landscaping">5. Grounds Maintenance & Landscaping</option>
-              <option value="Electrical & Mechanical (M&E)">6. Electrical & Mechanical (M&E)</option>
-              <option value="HVAC, Plumbing & Heating">7. HVAC, Plumbing & Heating</option>
-              <option value="Roofing, Glazing & Building Fabric">8. Roofing, Glazing & Building Fabric</option>
-              <option value="Painting, Decorating & Refurbishment">9. Painting, Decorating & Refurbishment</option>
-              <option value="Fire Safety & Compliance Testing">10. Fire Safety & Compliance Testing</option>
-              <option value="Asbestos, Legionella & Environmental">11. Asbestos, Legionella & Environmental</option>
-              <option value="Waste Management & Recycling">12. Waste Management & Recycling</option>
-              <option value="Pest Control & Hygiene Services">13. Pest Control & Hygiene Services</option>
-              <option value="Catering & Hospitality Services">14. Catering & Hospitality Services</option>
-              <option value="Courier, Transport & Fleet Logistics">15. Courier, Transport & Fleet Logistics</option>
-              <option value="Scaffolding, Access & Plant Hire">16. Scaffolding, Access & Plant Hire</option>
-              <option value="Signage, Print & Branded Goods">17. Signage, Print & Branded Goods</option>
-              <option value="Training, HR & Recruitment">18. Training, HR & Recruitment</option>
-              <option value="Marketing, Design & Web Development">19. Marketing, Design & Web Development</option>
-              <option value="Cybersecurity & Cloud Infrastructure">20. Cybersecurity & Cloud Infrastructure</option>
-              <option value="Consultancy & Professional Services">21. Consultancy & Professional Services</option>
-              <option value="Solar, EV Charging & Energy Retrofit">22. Solar, EV Charging & Energy Retrofit</option>
-              <option value="Healthcare & Clinical Support">23. Healthcare & Clinical Support</option>
-              <option value="Other UK B2B Service">24. Other UK B2B Service</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="region">Target UK Region (All 12 Regions)</label>
-            <select id="region" name="region">
-              <option value="London & Greater London">London & Greater London</option>
-              <option value="South East (Oxfordshire, Berks, Bucks, Surrey, Kent)">South East (Oxon, Berks, Bucks, Surrey, Kent)</option>
-              <option value="South West (Bristol, Devon, Dorset, Wilts)">South West (Bristol, Devon, Dorset, Wilts)</option>
-              <option value="East of England (Cambs, Essex, Herts, Norfolk)">East of England (Cambs, Essex, Herts, Norfolk)</option>
-              <option value="West Midlands (Birmingham, Coventry, Staffs)">West Midlands (Birmingham, Coventry, Staffs)</option>
-              <option value="East Midlands (Nottingham, Leicester, Derby)">East Midlands (Nottingham, Leicester, Derby)</option>
-              <option value="North West (Manchester, Liverpool, Lancs)">North West (Manchester, Liverpool, Lancs)</option>
-              <option value="Yorkshire & The Humber (Leeds, Sheffield)">Yorkshire & The Humber (Leeds, Sheffield)</option>
-              <option value="North East (Newcastle, Durham, Teesside)">North East (Newcastle, Durham, Teesside)</option>
-              <option value="Scotland">Scotland</option>
-              <option value="Wales">Wales</option>
-              <option value="UK-Wide / Remote Delivery">UK-Wide / Remote Delivery</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div>
-            <label for="budget">Preferred Contract Value</label>
-            <select id="budget" name="budget">
-              <option value="£10k – £122k (All SME Below-Threshold Quotes)">£10k – £122k (All SME Below-Threshold Quotes)</option>
-              <option value="£10k – £35k (Fast-Turnaround Direct Quotes)">£10k – £35k (Fast-Turnaround Direct Quotes)</option>
-              <option value="£35k – £75k (Mid-Size Local Contracts)">£35k – £75k (Mid-Size Local Contracts)</option>
-              <option value="£75k – £122k (Multi-Year Council & School Tenders)">£75k – £122k (Multi-Year Council & School Tenders)</option>
-            </select>
-          </div>
-          <div>
-            <label for="recipients">Extra Team Emails (Optional)</label>
-            <input type="text" id="recipients" name="recipients" placeholder="e.g. bids@company.co.uk" />
-          </div>
-        </div>
-
